@@ -14,7 +14,7 @@ var del             = require('del');
 
 var paths = {
     styles: 'app/sass/**/*.scss',
-    views: 'app/**/*.html',
+    views: ['app/**/*.html'],
     scripts: ['app/js/**/*.js', '!app/js/vendors/**/*.js'],
     vendorScripts: 'app/js/vendors/**/*.js',
     images: 'app/img/**/*'
@@ -60,7 +60,7 @@ gulp.task('scripts', function() {
         .pipe(uglify())
         .pipe(concat('app.min.js'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('images', function() {
