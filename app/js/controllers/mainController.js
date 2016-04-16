@@ -39,7 +39,7 @@
 		}
 
 		function onSubmit() {
-			var duration = 4000;
+			var duration = 3000;
 
 			if (isCityInList()) {
 				alertError();
@@ -51,15 +51,20 @@
 				getForecast(vm.newCity)
 					.then(function (data) {
 						alertSuccess();
+
 						vm.citiesNames.push(data.city.name);
+						vm.newCity = '';
 
 						$timeout(resetAlertObject, duration);
 					});
 			}
 		}
 
-		function removeCity(index) {
+		function removeCity(index, cityName) {
 			vm.citiesObjects.splice(index, 1);
+			_.remove(vm.citiesNames, function(name) {
+				return name === cityName;
+			});
 		}
 
 		function isCityInList() {

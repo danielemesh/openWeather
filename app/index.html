@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-sm-12" ng-repeat="city in mainCtrl.citiesObjects">
-      <button class="btn btn-danger remove-btn" ng-click="mainCtrl.removeCity($index)">Remove</button>
+      <button class="btn btn-danger remove-btn" ng-click="mainCtrl.removeCity($index, city.city.name)">Remove</button>
       <city city="city"></city>
     </div>
   </div>
