@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
 	"use strict";
 
@@ -20,38 +20,43 @@
 
 		function link(scope) {
 
-			console.log(scope.city);
-
 			scope.name        = getName();
 			scope.iconUrl     = getIconUrl();
 			scope.description = getDescription();
 			scope.maxTemp     = getTemperature().max;
 			scope.minTemp     = getTemperature().min;
-			scope.date        = parseDate();
+			scope.date        = getParsedDate();
 
+			scope.getParsedDate  = getParsedDate;
+			scope.getIconUrl     = getIconUrl;
+			scope.getDescription = getDescription;
 
-			function getWeatherObject() {
-				return scope.city.list[0].weather[0];
+			function getForecastList() {
+				return scope.city.list;
 			}
 
-			function getIconUrl() {
-				return getWeatherObject().icon;
+			function getWeatherObject(index = 0) {
+				return getForecastList()[index].weather[0];
+			}
+
+			function getIconUrl(index = 0) {
+				return getWeatherObject(index).icon;
 			}
 
 			function getName() {
 				return scope.city.city.name;
 			}
 
-			function getDescription() {
-				return getWeatherObject().description;
+			function getDescription(index = 0) {
+				return getWeatherObject(index).description;
 			}
 
-			function getTemperature() {
-				return scope.city.list[0].temp;
+			function getTemperature(index = 0) {
+				return getForecastList()[index].temp;
 			}
 
-			function parseDate() {
-				return scope.city.list[0].dt * 1000;
+			function getParsedDate(index = 0) {
+				return getForecastList()[index].dt * 1000;
 			}
 
 		}
