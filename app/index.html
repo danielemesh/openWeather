@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Open Weather</title>
-  <link rel="stylesheet" href="css/application.css"/>
-  <script src="js/vendors/angular.min.js"></script>
-  <script src="js/vendors/lodash.min.js"></script>
+  <link rel="stylesheet" href="assets/css/application.css"/>
+  <script src="assets/scripts/angular.min.js"></script>
+  <script src="assets/scripts/lodash.min.js"></script>
   <script src="app.min.js"></script>
 </head>
 <body  ng-controller="mainController as mainCtrl">
@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand dau-up-brand" href="https://dauup.com/">
-          <img alt="Brand" class="logo" src="img/dau-up-logo.svg">
+          <img alt="Brand" class="logo" src="assets/images/dau-up-logo.svg">
         </a>
       </div>
       <form ng-submit="mainCtrl.onSubmit()" class="navbar-form navbar-left">
@@ -24,7 +24,7 @@
         <button type="submit" class="btn btn-info">Add</button>
       </form>
       <a class="navbar-brand navbar-right" href="http://openweathermap.org/">
-        <img alt="Brand" class="logo" src="img/open-weather-logo.png">
+        <img alt="Brand" class="logo" src="assets/images/open-weather-logo.png">
       </a>
     </div>
   </nav>
