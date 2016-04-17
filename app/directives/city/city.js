@@ -9,7 +9,7 @@
 	function city() {
 		var directive = {
 			restrict: 'E',
-			templateUrl: 'js/directives/city/city.html',
+			templateUrl: 'directives/city/city.html',
 			link: link,
 			scope: {
 				city: '='

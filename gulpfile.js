@@ -13,11 +13,11 @@ var browserSync     = require('browser-sync').create();
 var del             = require('del');
 
 var paths = {
-    styles: 'app/sass/**/*.scss',
+    styles: 'app/assets/scss/**/*.scss',
     views: ['app/**/*.html'],
-    scripts: ['app/js/**/*.js', '!app/js/vendors/**/*.js'],
-    vendorScripts: 'app/js/vendors/**/*.js',
-    images: 'app/img/**/*'
+    scripts: ['app/**/*.js', '!app/assets/scripts/**/*.js'],
+    vendorScripts: 'app/assets/scripts/**/*.js',
+    images: 'app/assets/images/**/*'
 };
 
 
@@ -39,8 +39,8 @@ gulp.task('views', function () {
 
 gulp.task('vendorScripts', function () {
     return gulp.src(paths.vendorScripts, {
-        base: 'app/js/vendors'
-    }).pipe(gulp.dest('dist/js/vendors'));
+        base: 'app/assets/scripts'
+    }).pipe(gulp.dest('dist/assets/scripts'));
 });
 
 gulp.task('styles', function () {
@@ -49,7 +49,7 @@ gulp.task('styles', function () {
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('dist/assets/css'))
         .pipe(browserSync.stream());
 });
 
@@ -66,7 +66,7 @@ gulp.task('scripts', function() {
 gulp.task('images', function() {
     return gulp.src(paths.images)
         .pipe(imagemin({optimizationLevel: 5}))
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('dist/assets/images'));
 });
 
 gulp.task('watch', function() {
