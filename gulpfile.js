@@ -14,7 +14,7 @@ var del             = require('del');
 
 var paths = {
     styles: 'app/assets/scss/**/*.scss',
-    views: ['app/**/*.html'],
+    views: ['app/**/*.html', 'app/*.json'],
     scripts: ['app/**/*.js', '!app/assets/scripts/**/*.js'],
     vendorScripts: 'app/assets/scripts/**/*.js',
     images: 'app/assets/images/**/*'
