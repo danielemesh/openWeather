@@ -21,6 +21,7 @@
 		function link(scope) {
 
 			scope.name        = getName();
+			scope.country     = getCountry();
 			scope.iconUrl     = getIconUrl();
 			scope.description = getDescription();
 			scope.maxTemp     = getTemperature().max;
@@ -45,6 +46,10 @@
 
 			function getName() {
 				return scope.city.city.name;
+			}
+
+			function getCountry() {
+				return scope.city.city.country;
 			}
 
 			function getDescription(index = 0) {
