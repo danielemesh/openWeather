@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="openWeather">
+<head>
+  <meta charset="UTF-8">
+  <title>Open Weather</title>
+  <link rel="stylesheet" href="assets/css/application.css"/>
+  <script src="assets/scripts/angular.min.js"></script>
+  <script src="assets/scripts/lodash.min.js"></script>
+  <script src="app.min.js"></script>
+</head>
+<body  ng-controller="mainController as mainCtrl">
+<header class="header">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand dau-up-brand" href="https://dauup.com/">
+          <img alt="Brand" class="logo" src="assets/images/dau-up-logo.svg">
+        </a>
+      </div>
+      <form ng-submit="mainCtrl.onSubmit()" class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="mainCtrl.newCity" placeholder="Add Another City">
+        </div>
+        <button type="submit" class="btn btn-info">Add</button>
+      </form>
+      <a class="navbar-brand navbar-right" href="http://openweathermap.org/">
+        <img alt="Brand" class="logo" src="assets/images/open-weather-logo.png">
+      </a>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-12" ng-show="mainCtrl.alert.message">
+      <p class="alert {{ mainCtrl.alert.cssClass }}" role="alert">{{ mainCtrl.alert.message }}</p>
+    </div>
+
+    <div class="col-sm-12" ng-repeat="city in mainCtrl.citiesObjects">
+      <button class="btn btn-danger remove-btn" ng-click="mainCtrl.removeCity($index, city.city.name)">Remove</button>
+      <city city="city"></city>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
