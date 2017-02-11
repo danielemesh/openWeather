@@ -1,18 +1,18 @@
 'use strict';
 
-var gulp            = require('gulp');
-var run             = require('run-sequence');
-var sourcemaps      = require('gulp-sourcemaps');
-var babel           = require('gulp-babel');
-var sass            = require('gulp-sass');
-var imagemin        = require('gulp-imagemin');
-var concat          = require('gulp-concat');
-var uglify          = require('gulp-uglify');
-var autoprefixer    = require('gulp-autoprefixer');
-var browserSync     = require('browser-sync').create();
-var del             = require('del');
+const gulp            = require('gulp');
+const run             = require('run-sequence');
+const sourcemaps      = require('gulp-sourcemaps');
+const babel           = require('gulp-babel');
+const sass            = require('gulp-sass');
+const imagemin        = require('gulp-imagemin');
+const concat          = require('gulp-concat');
+const uglify          = require('gulp-uglify');
+const autoprefixer    = require('gulp-autoprefixer');
+const browserSync     = require('browser-sync').create();
+const del             = require('del');
 
-var paths = {
+const paths = {
     styles: 'app/assets/scss/**/*.scss',
     views: ['app/**/*.html', 'app/*.json'],
     scripts: ['app/**/*.js', '!app/assets/scripts/**/*.js'],
@@ -20,30 +20,34 @@ var paths = {
     images: 'app/assets/images/**/*'
 };
 
+// Tasks
+const clean = (callback) => {
+    return del(['dist', 'docs'], callback);
+};
 
-gulp.task('clean', function (cb) {
-    return del(['dist', 'docs'], cb);
-});
+const serve = () => {
+    return run('styles', 'scripts', 'vendorScripts', 'images', 'views', 'serve', 'docs');
+};
 
-gulp.task('serve', ['watch'], function() {
+const initBrowserSync = () => {
     browserSync.init({
         server: 'dist'
     });
-});
+};
 
-gulp.task('views', function () {
+const views = () => {
     return gulp.src(paths.views, {
         base: 'app'
     }).pipe(gulp.dest('dist'));
-});
+};
 
-gulp.task('vendorScripts', function () {
+const vendorScripts = () => {
     return gulp.src(paths.vendorScripts, {
         base: 'app/assets/scripts'
     }).pipe(gulp.dest('dist/assets/scripts'));
-});
+};
 
-gulp.task('styles', function () {
+const styles = () => {
     return gulp.src(paths.styles)
         .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -51,9 +55,9 @@ gulp.task('styles', function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist/assets/css'))
         .pipe(browserSync.stream());
-});
+};
 
-gulp.task('scripts', function() {
+const scripts = () => {
     return gulp.src(paths.scripts)
         .pipe(sourcemaps.init())
         .pipe(babel({presets: ['es2015']}))
@@ -61,30 +65,37 @@ gulp.task('scripts', function() {
         .pipe(concat('app.min.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist/'));
-});
+};
 
-gulp.task('images', function() {
+const images = () => {
     return gulp.src(paths.images)
         .pipe(imagemin({optimizationLevel: 5}))
         .pipe(gulp.dest('dist/assets/images'));
-});
+};
 
-gulp.task('watch', function() {
+const watch = () => {
     gulp.watch(paths.scripts,   ['scripts', browserSync.reload]);
     gulp.watch(paths.images,    ['images',  browserSync.reload]);
-    gulp.watch(paths.styles,    ['styles']);
+    gulp.watch(paths.styles,    ['styles',  browserSync.reload]);
     gulp.watch(paths.views,     ['views',   browserSync.reload]);
-});
+};
 
-gulp.task('docs', function() {
-   return gulp.src('dist/**/*', {
-       base: 'dist'
-   })
-       .pipe(gulp.dest('docs'));
-});
+const docs = () => {
+    return gulp.src('dist/**/*', {
+        base: 'dist'
+    })
+        .pipe(gulp.dest('docs'));
+};
 
-function serve() {
-    return run('styles', 'scripts', 'vendorScripts', 'images', 'views', 'serve', 'docs');
-}
 
-gulp.task('default', ['clean'], serve());
+gulp.task('clean',                      clean);
+gulp.task('serve',          ['watch'],  initBrowserSync);
+gulp.task('views',                      views);
+gulp.task('vendorScripts',              vendorScripts);
+gulp.task('styles',                     styles);
+gulp.task('scripts',                    scripts);
+gulp.task('images',                     images);
+gulp.task('watch',                      watch);
+gulp.task('docs',                       docs);
+
+gulp.task('default',        ['clean'],  serve());
