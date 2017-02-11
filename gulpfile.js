@@ -22,7 +22,7 @@ var paths = {
 
 
 gulp.task('clean', function (cb) {
-    return del('dist', cb);
+    return del(['dist', 'docs'], cb);
 });
 
 gulp.task('serve', ['watch'], function() {
@@ -76,8 +76,15 @@ gulp.task('watch', function() {
     gulp.watch(paths.views,     ['views',   browserSync.reload]);
 });
 
+gulp.task('docs', function() {
+   return gulp.src('dist/**/*', {
+       base: 'dist'
+   })
+       .pipe(gulp.dest('docs'));
+});
+
 function serve() {
-    return run('styles', 'scripts', 'vendorScripts', 'images', 'views', 'serve');
+    return run('styles', 'scripts', 'vendorScripts', 'images', 'views', 'serve', 'docs');
 }
 
 gulp.task('default', ['clean'], serve());
