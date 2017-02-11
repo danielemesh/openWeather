@@ -13,7 +13,7 @@
 		var context          = this;
 		const API_KEY        = 'c5ac0098c8c7b7a5512b4679a5b11f9f';
 		const BASE_API_URL   = 'http://api.openweathermap.org/data/2.5/';
-		const CITIES_JSON    = 'city.list.json';
+		const CITIES_JSON    = '/data/city.list.json';
 		const FORECAST_URL   = `${BASE_API_URL}/forecast/daily?APPID=${API_KEY}&units=metric&cnt=6&id=`;
 		const ICONS_BASE_URL = 'http://openweathermap.org/img/w/';
 
