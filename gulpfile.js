@@ -19,7 +19,7 @@ const docsDir = 'docs';
 const paths = {
     src: {
         styles:        `${appDir}/assets/scss/**/*.scss`,
-        scripts:       [`${appDir}/**/*.js`, `!${appDir}/assets/scipts/**/*.js`],
+        scripts:       [`${appDir}/**/*.js`, `!${appDir}/assets/scripts/**/*.js`],
         vendorScripts: 'app/assets/scripts/**/*.js',
         images:        'app/assets/images/**/*',
         views:         [`${appDir}/**/*.html`],
